@@ -1,11 +1,13 @@
 const user = {
-    name:'Petro',
+    name: 'Petro',
     hobby: 'football',
     premium: true
 }
-user.hobby = 'skydiving'
+let {name = 'Petro', hobby = 'football', premium = true, mood = 'happy'} = user
+hobby = 'skydiving'
 user.mood = 'happy'
-user.premium = false
+premium = false
+console.log(name, hobby, mood, premium)
 
 
 const keys = Object.keys(user)
@@ -17,23 +19,29 @@ const hotel = {
     stars: 5,
     capacity: 100
 }
-const obj = Object.values(hotel)
+let { naame = 'Resort Hotel', stars = 5,
+    capacity = 100} = hotel
+const obj = Object.values(naame, stars, capacity)
 function countProps(obj) {
  return obj.length
 }
 console.log(countProps(obj))
-const employees = {
-    Petro: 3,
-    Sanya:5,
-    Sergiy: 7,
-    Vladuslav: 6
+const employees = [
+    {name: 'Petro', tasks: 3},
+    {name: 'Sanya', tasks: 5},
+    {name: 'Sergiy', tasks: 7},
+    {name: 'Vladuslav', tasks: 4}
+];
+
+function findBestEmployee(employees) {
+    const mostProductiveValue = Math.max(...employees.map(employee => employee.tasks));
+
+    const mostProductiveEmployee = employees.find(employee => employee.tasks === mostProductiveValue);
+
+    return mostProductiveEmployee.name;
 }
 
-function findBestEmployee(employees, mostProductive) {
-    const mostProductive = Math.max(...Object.values(employees))
-    return mostProductive
-}
-console.log(findBestEmployee(employees, mostProductive))
+console.log(findBestEmployee(employees));
 
 
 
@@ -43,9 +51,9 @@ const salary = {
     Sergiy: 7000,
     Vladuslav: 6000
 }
-
-function countTotalSalary(salary) {
-    const salaryEmployees = Object.values(salary)
+let { Petro = 3000, Sanya = 5000, Sergiy = 7000,  Vladuslav = 6000} = salary
+function countTotalSalary(Petro, Sanya, Sergiy, Vladuslav) {
+    const salaryEmployees = Object.values(Petro, Sanya, Sergiy, Vladuslav)
     let total = 0
     for(let i = 0;i < salaryEmployees.length;i++) {
       total += salaryEmployees[i]
@@ -61,9 +69,9 @@ const allProducts = [
 
 function calculateTotalPrice(allProducts, productName) {
     let total = 0;
-    for (const product of allProducts) {
-        if (product.name === productName) {
-            total += product.price * product.quantity;
+    for (const { name, price, quantity } of allProducts) {
+        if (name === productName) {
+            total += price * quantity;
         }
     }
     return total;
